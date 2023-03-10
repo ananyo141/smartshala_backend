@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from test_app.models import Question, Standard, Subject, Test, Topic
+
+from smartshala.test_app.models import Question, Standard, Subject, Test, Topic
 
 
 class TestCreateSerializer(serializers.ModelSerializer):

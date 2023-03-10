@@ -1,5 +1,6 @@
-from grader_app.models import AnsweredQuestion, AnswerSheet
 from rest_framework import serializers
+
+from smartshala.grader_app.models import AnsweredQuestion, AnswerSheet
 
 
 class AnswerSheetSerializer(serializers.ModelSerializer):

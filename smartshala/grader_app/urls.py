@@ -1,5 +1,9 @@
 from django.urls import path
-from grader_app.views import AnsweredQuestionListView, uploadTestPaperView
+
+from smartshala.grader_app.views import (
+    AnsweredQuestionListView,
+    uploadTestPaperView,
+)
 
 app_name = "Grader"
 

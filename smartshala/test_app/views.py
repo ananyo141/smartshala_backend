@@ -3,9 +3,10 @@ from rest_framework import generics, status
 from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from school_app.models import SchoolTeacher
-from test_app.models import Question, Standard, Test
-from test_app.serializers import (
+
+from smartshala.school_app.models import SchoolTeacher
+from smartshala.test_app.models import Question, Standard, Test
+from smartshala.test_app.serializers import (
     QuestionSerializer,
     TestCreateSerializer,
     TestSerializer,

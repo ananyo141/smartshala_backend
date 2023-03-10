@@ -1,17 +1,16 @@
 # from django.db.models import Count, Sum, F
-from grader_app.models import AnsweredQuestion, AnswerSheet
-from grader_app.serializers import (
-    AnsweredQuestionSerializer,
-    AnswerSheetSerializer,
-    AnswerSheetUploadSerializer,
-)
-from grader_app.tasks import process_images
-from parikshana.custom_paginator import CustomPagination
 from rest_framework import generics
 from rest_framework.exceptions import NotFound
 from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
-from test_app.models import Test
+
+from smartshala.grader_app.models import AnsweredQuestion, AnswerSheet
+from smartshala.grader_app.serializers import (
+    AnsweredQuestionSerializer,
+    AnswerSheetSerializer,
+    AnswerSheetUploadSerializer,
+)
+from smartshala.test_app.models import Test
 
 # Create your views here.
 
@@ -20,7 +19,6 @@ class uploadTestPaperView(generics.ListAPIView):
     """Upload Test Paper"""
 
     parser_classes = (MultiPartParser,)
-    pagination_class = CustomPagination
     serializer_class = AnswerSheetSerializer
 
     def get_queryset(self):
@@ -52,17 +50,7 @@ class uploadTestPaperView(generics.ListAPIView):
             data={"test": test_obj.id, "image": image}
         )
         if serializer.is_valid():
-            inst = serializer.save()
-            inst.job_id = process_images.apply_async(
-                kwargs={
-                    "test_id": test_obj.id,
-                    "test_ans_id": inst.id,
-                    "is_shuffled": test_obj.is_shuffled,
-                },
-                soft_time_limit=100,
-            )
-            inst.status = "Queued"
-            inst.save()
+            serializer.save()
             return Response(
                 {"message": "Test Paper Uploaded Successfully"}, status=201
             )
