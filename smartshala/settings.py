@@ -50,15 +50,17 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # third-party apps
     "rest_framework",
-    "rest_framework.authtoken",
     "corsheaders",
     "drf_spectacular",
     # local apps
-    "backend.smartshala",
+    "smartshala.core",
+    "smartshala.grader_app",
+    "smartshala.school_app",
+    "smartshala.test_app",
 ]
 
 # Custom user model
-AUTH_USER_MODEL = "smartshala.User"
+AUTH_USER_MODEL = "core.User"
 
 # https://dev.to/djangotricks/how-to-upload-a-file-using-django-rest-framework-1kgf
 REST_FRAMEWORK = {
@@ -66,18 +68,11 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
-    # "DEFAULT_PERMISSION_CLASSES": [
-    #     "rest_framework.permissions.IsAuthenticated",
-    # ],
-    # "DEFAULT_PARSER_CLASSES": [
-    #     "rest_framework.parsers.MultiPartParser",
-    #     "rest_framework.parsers.JSONParser",
-    # ],
 }
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Snappio API",
-    "DESCRIPTION": "Snappio API",
+    "TITLE": "SmartShala API",
+    "DESCRIPTION": "SmartShala API",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
     # generate appropriate tags for each endpoint
@@ -111,7 +106,7 @@ MIDDLEWARE = [
 # Allow all origins for CORS
 CORS_ALLOW_ALL_ORIGINS = True
 
-ROOT_URLCONF = "backend.urls"
+ROOT_URLCONF = "smartshala.urls"
 
 TEMPLATES = [
     {
@@ -129,7 +124,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "backend.wsgi.application"
+WSGI_APPLICATION = "smartshala.wsgi.application"
 
 
 # Database
@@ -183,7 +178,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-STATICFILES_DIRS = [BASE_DIR / "snappio" / "site_static"]
+STATICFILES_DIRS = [BASE_DIR / "site_static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATIC_URL = "/static/"
