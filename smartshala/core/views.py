@@ -1,6 +1,5 @@
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from .models import User
 from .serializers import UserSerializer
@@ -8,11 +7,10 @@ from .serializers import UserSerializer
 # Create your views here.
 
 
-class UserListView(APIView):
+class UserListView(ListCreateAPIView):
     """Create a new user in the system"""
 
     serializer_class = UserSerializer
-    permission_classes = (IsAuthenticated,)
     queryset = User.objects.all()
 
     def get(self, request, *args, **kwargs):
